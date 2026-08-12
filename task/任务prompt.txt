@@ -1,0 +1,17 @@
+账号安全控制台即将接入高风险冻结流程。值班团队需要确认页面给出的裁决与冻结权限一致，验证码落在策略允许的时间窗内，键盘用户也能完成主冻结路径。冻结请求一旦错误发送，可能造成误封或重复处置，因此发布审批需要保留浏览器观察结果和请求回执。
+
+输入包中的静态页面位于app目录。fixtures目录提供风险登录事件、管理员角色和冻结策略，queues/review_queue.csv列出本批队列项。请从starter中的骨架开始，用Playwright1.62和Chromium完成output/playwright.config.ts与output/tests/account_security_totp.spec.ts。页面载入前需路由风险事件和策略接口，并将浏览器业务时间固定为freeze_policy.json中的fixed_now_utc。
+
+把队列项与风险事件关联，依据freeze_policy.json规定的裁决顺序、分数阈值、风险信号和角色权限检查每张账号卡片。可冻结账号应在页面中启用操作，其余账号保留相应处置状态。TOTP从策略中的密钥、算法、位数、步长和接受偏移计算，当前时间步的验证码用于页面提交。
+
+主冻结流程使用Tab与Enter经过页头控件、冻结按钮、原因选择、验证码输入和确认按钮。捕获页面实际发出的冻结请求，核对请求方法、地址、字段集合、值班会话与幂等键，并确认无冻结权限的账号没有发出请求。
+
+运行npm run audit后交付以下文件：
+output/playwright.config.ts
+output/tests/account_security_totp.spec.ts
+output/reports/decision_matrix.csv
+output/reports/totp_window.csv
+output/reports/network_receipts.csv
+output/reports/modal_focus.csv
+
+decision_matrix.csv供安全运营确认各队列项的页面裁决，totp_window.csv供身份工程师复核时间窗，network_receipts.csv供审计人员追踪实际冻结请求，modal_focus.csv供无障碍负责人检查键盘路径。输入文件保持不变，正式运行只访问本机回环地址。四份报告能相互定位到队列项、事件和账号，且页面断言全部通过时，本次发布验收完成。

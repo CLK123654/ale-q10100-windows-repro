@@ -1,0 +1,9 @@
+{
+  "name": "ale-q10100-windows-repro",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "devDependencies": {
+    "playwright": "1.62.0"
+  }
+}

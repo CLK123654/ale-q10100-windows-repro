@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "result": "PASS",
+  "scanned_sources": 211,
+  "violations": [],
+  "answer_sheets": [
+    "交付物答案清单",
+    "固定字段答案",
+    "固定集合答案",
+    "固定数值答案",
+    "允许变体答案"
+  ],
+  "specification_sheets": [
+    "任务规格转化"
+  ],
+  "task_spec_row_count": 20,
+  "task_spec_column_count": 2,
+  "task_asset_id": "playwright_account_freeze_release_audit",
+  "task_asset_id_valid": true,
+  "forbidden_spec_labels": [],
+  "declared_delivery_paths": [
+    "output/playwright.config.ts",
+    "output/reports/decision_matrix.csv",
+    "output/reports/modal_focus.csv",
+    "output/reports/network_receipts.csv",
+    "output/reports/totp_window.csv",
+    "output/tests/account_security_totp.spec.ts"
+  ],
+  "reference_paths": [
+    "output/playwright.config.ts",
+    "output/reports/decision_matrix.csv",
+    "output/reports/modal_focus.csv",
+    "output/reports/network_receipts.csv",
+    "output/reports/totp_window.csv",
+    "output/tests/account_security_totp.spec.ts"
+  ],
+  "business_inputs": [
+    "input_data/app/security_console.html",
+    "input_data/app/security_console.js",
+    "input_data/fixtures/risk_login_events.json",
+    "input_data/fixtures/admin_roles.json",
+    "input_data/fixtures/freeze_policy.json",
+    "input_data/queues/review_queue.csv"
+  ],
+  "business_inputs_present": true,
+  "online_ai_detector_used_as_conclusion": false
+}
