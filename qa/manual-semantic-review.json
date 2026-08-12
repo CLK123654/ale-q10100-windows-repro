@@ -1,0 +1,44 @@
+{
+  "schema_version": 1,
+  "task_key": "id:10100",
+  "result": "PASS",
+  "review_method": "human_semantic_review",
+  "online_ai_detection_used_as_conclusion": false,
+  "business_role": "负责高风险账号冻结控制台发布的安全平台工程师",
+  "downstream_consumers": [
+    "安全运营人员使用裁决矩阵确认队列处置",
+    "身份工程师使用TOTP窗口复核验证码时步",
+    "审计人员使用请求回执追踪冻结动作",
+    "无障碍负责人使用焦点报告检查键盘路径"
+  ],
+  "consumed_inputs": [
+    "queues/review_queue.csv中的待处理队列",
+    "fixtures/risk_login_events.json中的风险事件",
+    "fixtures/admin_roles.json中的值班角色权限",
+    "fixtures/freeze_policy.json中的裁决、TOTP和请求合同",
+    "app目录中的账号安全控制台页面"
+  ],
+  "continuous_work_chain": [
+    "关联队列项、风险事件与账号",
+    "按策略顺序和角色权限推导裁决",
+    "在页面载入前提供本地接口响应并固定业务时间",
+    "核对卡片裁决、徽标和冻结按钮",
+    "计算TOTP接受窗口并通过键盘完成冻结操作",
+    "捕获冻结请求并整理四份互相可追溯的报告"
+  ],
+  "main_software_necessity": "Playwright需要真实启动Chromium，执行接口路由、键盘输入、焦点读取和请求捕获；文本解析或静态页面检查不能完成这条业务链。",
+  "hard_number_sources": [
+    "风险阈值、TOTP位数、步长、接受偏移和冻结额度来自fixtures/freeze_policy.json",
+    "浏览器时刻来自freeze_policy.json中的fixed_now_utc",
+    "队列规模来自queues/review_queue.csv",
+    "软件版本来自输入package-lock.json"
+  ],
+  "reference_integrity": "题面只引用输入包内的实际文件和字段，不含外部模糊来源或伪引用。",
+  "closure": "Prompt中的六项交付路径与Reference、关键标准答案和评分表逐项对应；四份报告通过queue_item_id、event_id和account_id闭合。",
+  "reasoning_continuity": "队列关联决定账号对象，策略与角色决定页面裁决，裁决决定可发请求集合，TOTP和键盘路径产生实际请求，报告再按业务主键回查前述输入与页面观察。",
+  "hallucination_or_unsupported_claims": [],
+  "unreasonable_requirements": [],
+  "pseudo_citations": [],
+  "reasoning_gaps": [],
+  "candidate_answer_leakage": []
+}

@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "result": "PASS",
-  "scanned_sources": 211,
+  "scanned_sources": 240,
   "violations": [],
   "answer_sheets": [
     "交付物答案清单",
@@ -13,7 +13,7 @@
   "specification_sheets": [
     "任务规格转化"
   ],
-  "task_spec_row_count": 20,
+  "task_spec_row_count": 21,
   "task_spec_column_count": 2,
   "task_asset_id": "playwright_account_freeze_release_review",
   "task_asset_id_valid": true,
@@ -43,5 +43,6 @@
     "input_data/queues/review_queue.csv"
   ],
   "business_inputs_present": true,
-  "online_ai_detector_used_as_conclusion": false
+  "online_ai_detector_used_as_conclusion": false,
+  "controlled_enum_exemption": "Computing, Data & Mathematical Sciences 计算、数据与数学科学"
 }

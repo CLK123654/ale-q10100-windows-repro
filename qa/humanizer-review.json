@@ -11,6 +11,7 @@
     "环境依赖",
     "软件步骤",
     "输入材料中的自然语言",
+    "Reference中的用户可见文字",
     "标准交付中的用户可见文字",
     "关键标准答案工作簿全部自然语言",
     "任务规格工作簿全部自然语言"
@@ -36,14 +37,14 @@
     "任务概要.txt": "338e901aeacb049f00ea05156aa62a6a44ec95acc9cfc8f8ff23abb2ddcc8290",
     "任务prompt.txt": "fd2c6e4bf40e2dc2ad7c95ca103ce4898165ab1fe77b970e297429738ce8ba1a",
     "关键动作.txt": "d6962aea332fb70403a1483d80b6f80c7e874dff75f190edecfd79c9e613f1e0",
-    "评分表.txt": "d74db52f46d59cc9e07cb0fe2d2bca2121836c008c145983737dacc2cf813028",
-    "环境依赖.txt": "ccfab698a66d2e35105521e166b03df1ced092cb4f63eaa4b0e26979c70dbdff",
+    "评分表.txt": "7590668cc0c2b34963c0cbde32963716ac7f89fa143e4071c176cf6a51b84a8e",
+    "环境依赖.txt": "d9bef05a0716551bc32623b477c5f50f2e7c7df64e91493107d47837d7ceee5f",
     "相关专业软件的关键步骤.txt": "1953bdf025cca0935b3e9042b33c911db141f4eacd02295c9b8b57af4b542ad4",
-    "task_fields.json": "531b5bdfa6315073919ab78753d860010d6ad33d207c60ac7abb004fc37d73f9",
-    "ALE-专家数据作业表.csv": "070178310f4f95eea35a573efd5eb47b04bcceb10453ae85f244947af68c430e",
-    "输入数据包.zip": "c6370588c63e71bbe21ac9bd1beb8595ebd25524017f3c9fa3b48ec15d93aa80",
+    "task_fields.json": "abbf38e6b67f678e4881913c819b482958ce0e9c4c6cdccdd4a3ee1f1d56ac37",
+    "ALE-专家数据作业表.csv": "5ebd6b39c06161cd8ee54beb4e9249c41750ce35f5a98a7ad791f1d0d7a8950b",
+    "输入数据包.zip": "22c9b65a1c5625877956011e432aeb5434c552feb9a0ca41f70b70e18c58ff9e",
     "reference.zip": "df12fe7d62db6994cb094277cfbfe3c7e8d4e1a53769f715175bcc41e968d0f2",
-    "关键标准答案.xlsx": "d02b32e664a7cff4070b754dc1f806a0e509741a02d0c232341c2d060aee5320",
-    "任务规格转化.xlsx": "4ea1157a22f5374e6237df5da00fc1b8e82b0f7678196fe5a45a4526a2d843b2"
+    "关键标准答案.xlsx": "c818b611d403df2998d391716eb70dd96f12b1e5f7860ca824fa3cbf519d0cb1",
+    "任务规格转化.xlsx": "16bf102c6abc5b075d3a290ba94780083ac87780f524aac10a6925c209a00eea"
   }
 }

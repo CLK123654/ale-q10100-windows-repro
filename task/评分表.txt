@@ -1,5 +1,7 @@
-检查项一：交付结构与浏览器入口
-检查项内容：题面声明的配置、用例和报告均可读取，npm run audit能够调用Playwright并启动Chromium页面
+总分100分
+
+1. 交付结构与浏览器入口
+分值：14分
 标准答案或判定规则：交付物位于题面声明的相对路径；浏览器项目和运行入口取自Playwright配置
 关键字段或路径：output目录；package.json的scripts.audit；playwright.config.ts
 容差及来源：路径和扩展名不设容差；源码内部组织可以不同
@@ -8,10 +10,10 @@
 客观硬性标准：题面声明的交付物可读，业务场景由Chromium执行
 通过阈值：全部满足
 优先级：Gate项
-所属层级：L8运行验证或可执行行为层
+所属层级：L8浏览器执行行为层
 
-检查项二：队列与风险事件关联
-检查项内容：每个队列项关联唯一风险事件，裁决报告保留队列项、事件与账号主键
+2. 队列与风险事件关联
+分值：14分
 标准答案或判定规则：review_queue.csv中的event_id在risk_login_events.json中唯一命中；account_id来自命中的风险事件
 关键字段或路径：queue_item_id、event_id、account_id、assigned_role
 容差及来源：主键精确比较；报告行序不计分
@@ -22,8 +24,8 @@
 优先级：Gate项
 所属层级：L5多源关联与字段一致性层
 
-检查项三：页面裁决和操作边界
-检查项内容：按冻结策略的裁决顺序、角色权限、风险分和信号核对页面徽标及按钮状态
+3. 页面裁决和操作边界
+分值：16分
 标准答案或判定规则：先处理已锁定账号和特殊账号类型，再处理高风险冻结、人工复核与监控；冻结按钮还受active_role、允许账号类型和daily_freeze_limit约束
 关键字段或路径：decision_order、account_status、account_type、risk_score、signals、active_role、can_freeze_account_types、daily_freeze_limit
 容差及来源：裁决枚举和reason_code区分大小写；集合按event_id比较
@@ -34,8 +36,8 @@
 优先级：高权重项
 所属层级：L6领域计算与专业规则层
 
-检查项四：TOTP接受窗口
-检查项内容：按策略密钥和算法参数计算固定业务时刻的接受窗口
+4. TOTP接受窗口
+分值：14分
 标准答案或判定规则：时间步由fixed_now_utc除以step_seconds得到；各偏移时间步使用secret_base32、algorithm和digits计算验证码，当前时间步验证码用于冻结请求
 关键字段或路径：fixed_now_utc、secret_base32、algorithm、digits、step_seconds、accepted_step_offsets、step_index、issued_at_utc、code、accepted
 容差及来源：整数、UTC时间和验证码精确比较；偏移按数值升序
@@ -46,8 +48,8 @@
 优先级：高权重项
 所属层级：L6领域计算与专业规则层
 
-检查项五：主冻结键盘路径
-检查项内容：从页头开始使用Tab与Enter进入首个可冻结账号的操作按钮和冻结对话框
+5. 主冻结键盘路径
+分值：14分
 标准答案或判定规则：活动元素按页面DOM的Tab次序变化；会话账号只记录在获得焦点的冻结按钮行，对话框控件顺序取自页面元素
 关键字段或路径：order_index、control、context、account_id、document.activeElement
 容差及来源：context可以使用语义相同的文字；控件顺序不设容差
@@ -56,10 +58,10 @@
 客观硬性标准：报告顺序与浏览器实际焦点一致，主账号来自首个可冻结裁决
 通过阈值：全部焦点节点满足
 优先级：高权重项
-所属层级：L8运行验证或可执行行为层
+所属层级：L8浏览器执行行为层
 
-检查项六：冻结请求合同
-检查项内容：只对具备冻结资格的账号发送请求，方法、地址、正文、值班会话与幂等键符合策略
+6. 冻结请求合同
+分值：14分
 标准答案或判定规则：请求集合来自action_enabled为true的裁决；地址用url_template和account_id生成，正文键来自body_keys，幂等键由账号、事件和动作组成
 关键字段或路径：account_id、event_id、method、url、reason_code、session_id、idempotency_key、totp_code、body_keys
 容差及来源：请求按account_id无序比较；字段名和值精确比较
@@ -70,8 +72,8 @@
 优先级：高权重项
 所属层级：L9跨产物一致性与可追溯层
 
-检查项七：报告间追溯关系
-检查项内容：四份报告能够从队列、事件和策略交叉复算，网络回执只记录实际发出的请求
+7. 报告间追溯关系
+分值：8分
 标准答案或判定规则：请求回执中的业务主键、原因和验证码分别在裁决矩阵与TOTP窗口中有唯一来源；焦点报告的主账号对应首个可冻结裁决
 关键字段或路径：queue_item_id、event_id、account_id、reason_code、totp_code、order_index
 容差及来源：按业务主键比较；CSV的LF或CRLF以及必要转义不计分
@@ -82,8 +84,8 @@
 优先级：普通项
 所属层级：L9跨产物一致性与可追溯层
 
-检查项八：输入保护与运行边界
-检查项内容：浏览器运行期间不改写输入，不访问外部服务，报告来自本次页面交互
+8. 输入保护与运行边界
+分值：6分
 标准答案或判定规则：app、fixtures和queues保持原值；页面请求只使用本机回环地址；测试通过Playwright观察页面和网络
 关键字段或路径：输入文件内容、请求主机、报告写入路径
 容差及来源：输入按字节比较；回环端口可以变化

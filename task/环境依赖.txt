@@ -1,5 +1,7 @@
-本任务支持Windows11、macOS和Linux。Windows11使用64位Node.js24LTS、Playwright1.62及其锁定版本Chromium，不依赖WSL、Docker、Bash或POSIX专用接口。Playwright负责浏览器页面、接口路由、键盘输入、焦点断言和请求捕获，文本解析或静态HTML检查不能替代这些操作。
+操作系统： Windows11、macOS或主流64位Linux。
 
-依赖通过package-lock.json安装。准备依赖时需要访问npm与Playwright浏览器下载源，正式运行只允许访问127.0.0.1或localhost。Node.js和Playwright均采用可免费使用的开源许可，不需要商业许可证。
+主软件为Playwright，使用输入锁文件兼容的Playwright1.62与Chromium。Node.js24LTS负责运行TypeScript测试入口。Playwright需要支持接口路由、键盘输入、焦点读取和请求捕获。
 
-建议使用双核CPU、4GB内存和1GB可写磁盘，GPU无要求。执行账号需要读取input_data并写入output及Playwright临时目录，单次入口最长运行120秒。输入均为自造脱敏样本。主要风险是页面导航后才设置接口路由、浏览器时间未固定、TOTP参数读取错误、禁用按钮仍能发送请求，或用程序强设焦点代替键盘路径。
+代码依赖通过package-lock.json安装。首次安装npm依赖和Chromium需要联网，正式处理只访问127.0.0.1或localhost。执行账号需要读取input_data，并写入output和Playwright临时目录。
+
+当前页面和队列规模适合普通64位多核CPU与常规办公内存，不要求独立GPU。磁盘应能容纳Node.js依赖、Chromium、输入材料、四份报告和运行临时文件。需设置有限超时，覆盖本题浏览器流程并避免异常无限等待。

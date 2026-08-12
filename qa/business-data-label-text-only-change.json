@@ -1,0 +1,162 @@
+{
+  "result": "PASS",
+  "task_key": "id:10100",
+  "change_type": "business_data_label_text_only",
+  "windows_rerun_required": false,
+  "business_semantics_changed": false,
+  "unchanged": [
+    "data",
+    "rules",
+    "code",
+    "attachment_member_structure",
+    "answers",
+    "score_semantics"
+  ],
+  "file_changes": [
+    {
+      "file": "输入数据包.zip#input_data/README.md",
+      "before_sha256": "c6370588c63e71bbe21ac9bd1beb8595ebd25524017f3c9fa3b48ec15d93aa80",
+      "after_sha256": "22c9b65a1c5625877956011e432aeb5434c552feb9a0ca41f70b70e18c58ff9e",
+      "changes": [
+        {
+          "before": "这是一套脱敏的账号安全演练",
+          "after": "这套材料来自本次账号安全控制台发布批次，账号、设备、事件和角色字段已脱敏"
+        }
+      ]
+    },
+    {
+      "file": "任务规格转化.xlsx#任务规格转化",
+      "before_sha256": "4ea1157a22f5374e6237df5da00fc1b8e82b0f7678196fe5a45a4526a2d843b2",
+      "after_sha256": "16bf102c6abc5b075d3a290ba94780083ac87780f524aac10a6925c209a00eea",
+      "changes": [
+        {
+          "before": "自造并脱敏的账号安全发布演练",
+          "after": "本次账号安全控制台发布批次，包括字段已脱敏的风险登录事件、值班角色、冻结策略和待处理队列"
+        },
+        {
+          "before": "按固定枚举顺序与写死的验证码参数描述规则",
+          "after": "从freeze_policy.json读取decision_order和全部TOTP参数"
+        },
+        {
+          "before": "不适合作为评分点的内容承载输入保护边界",
+          "after": "新增实现边界，公共收尾只保留可验证点和非评分实现细节"
+        }
+      ]
+    },
+    {
+      "file": "关键标准答案.xlsx#交付物答案清单与允许变体答案",
+      "before_sha256": "d02b32e664a7cff4070b754dc1f806a0e509741a02d0c232341c2d060aee5320",
+      "after_sha256": "c818b611d403df2998d391716eb70dd96f12b1e5f7860ca824fa3cbf519d0cb1",
+      "changes": [
+        {
+          "before": "固定路径或命名规则",
+          "after": "固定路径/命名规则"
+        },
+        {
+          "before": "不按样本主键写死裁决",
+          "after": "不按当前业务主键写死裁决"
+        }
+      ]
+    },
+    {
+      "file": "环境依赖.txt",
+      "before_sha256": "ccfab698a66d2e35105521e166b03df1ced092cb4f63eaa4b0e26979c70dbdff",
+      "after_sha256": "d9bef05a0716551bc32623b477c5f50f2e7c7df64e91493107d47837d7ceee5f",
+      "changes": [
+        {
+          "before": "Windows11验证环境、固定硬件数字、许可证、兼容性否定排比和演练样本说明",
+          "after": "通用操作系统、主软件、代码依赖、适配当前规模的资源、磁盘和有限超时条件"
+        }
+      ]
+    },
+    {
+      "file": "评分表.txt",
+      "before_sha256": "1d64ce803c84358e788fc10200df70f62a72068e3f588914f4ed54ff1a5cdd77",
+      "after_sha256": "7590668cc0c2b34963c0cbde32963716ac7f89fa143e4071c176cf6a51b84a8e",
+      "changes": [
+        {
+          "before": "所属层级：L8运行验证或可执行行为层",
+          "after": "所属层级：L8浏览器执行行为层"
+        }
+      ]
+    },
+    {
+      "file": "repo/README.md",
+      "before_sha256": "e896475fff908e657bc94e84b097ce99538cac923167a9a7c1a91fe90f0cde43",
+      "after_sha256": "430e08379893f22715bc51287214d8a577f50d78481c3d336729b86a6b76dd26",
+      "changes": [
+        {
+          "before": "GitHub托管运行器与验证器过程说明",
+          "after": "账号冻结发布核查的业务用途和正式运行边界"
+        }
+      ]
+    },
+    {
+      "file": "repo/NOTICE.md",
+      "before_sha256": "0164c8a791f6d8262068e9fa35c54fb1a697b78291fb91d151cfc883e91ccaa",
+      "after_sha256": "8da1571ba288de375f7c4df8897ad79934d6255735aa4edfe4a6daf8885a82f6",
+      "changes": [
+        {
+          "before": "自造的脱敏演练材料",
+          "after": "本次账号安全控制台发布批次材料，字段已脱敏"
+        }
+      ]
+    }
+  ],
+  "current_attachment_sha256": {
+    "输入数据包.zip": "22c9b65a1c5625877956011e432aeb5434c552feb9a0ca41f70b70e18c58ff9e",
+    "reference.zip": "df12fe7d62db6994cb094277cfbfe3c7e8d4e1a53769f715175bcc41e968d0f2",
+    "关键标准答案.xlsx": "c818b611d403df2998d391716eb70dd96f12b1e5f7860ca824fa3cbf519d0cb1",
+    "任务规格转化.xlsx": "16bf102c6abc5b075d3a290ba94780083ac87780f524aac10a6925c209a00eea"
+  },
+  "scans": {
+    "scope": [
+      "17_fields",
+      "input_zip_all_text_members",
+      "reference_zip_all_text_members",
+      "answer_workbook_all_cells",
+      "spec_workbook_all_cells",
+      "public_repo_candidate_visible_text"
+    ],
+    "mixed_boundary_space_natural_language": 0,
+    "quote_natural_language": 0,
+    "business_data_label_hits": 0,
+    "process_language_hits": 0,
+    "controlled_enum_exemption": "Computing, Data & Mathematical Sciences 计算、数据与数学科学",
+    "static_gate": ".qa/static_gate.json",
+    "task_contract": "PASS",
+    "score_answer_leak": ".qa/score-answer-leak.json"
+  },
+  "specification_semantic_audit": {
+    "two_column_structure": true,
+    "row_count": 21,
+    "task_id": "playwright_account_freeze_release_review",
+    "task_id_is_name_based_lower_snake_case": true,
+    "input_source_is_current_batch": true,
+    "business_goal_is_realistic": true,
+    "deliverables_are_closed": true,
+    "main_software_steps_are_operational": true,
+    "implementation_boundary_is_business_facing": true,
+    "table_field_collage_hits": 0,
+    "authoring_or_validation_voice_hits": 0,
+    "ai_template_hits": 0
+  },
+  "humanizer_zh": {
+    "total": 47,
+    "threshold": 45,
+    "online_ai_detection_used_as_conclusion": false,
+    "file": ".qa/humanizer-review.json"
+  },
+  "workbook_visual_review": {
+    "result": "PASS",
+    "preview": ".qa/workbook-previews/spec/01-任务规格转化.png",
+    "clipped_cells": 0,
+    "formula_errors": 0
+  },
+  "reused_windows_evidence": {
+    "run_id": 31590556742,
+    "file": "../../evidence/10100/run-31590556742/windows-verification.json",
+    "sha256": "316a59f28dc96c92701407348c74e23d4d8ebc414f2fd4eae7a672ec9791f2b6",
+    "reason": "本次只调整数据来源称谓、字段自然语言、规格描述和公开说明，没有改变业务数据、规则、代码、附件成员结构、答案语义或评分语义。"
+  }
+}
