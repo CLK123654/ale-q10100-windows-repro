@@ -158,5 +158,11 @@
     "file": "../../evidence/10100/run-31590556742/windows-verification.json",
     "sha256": "316a59f28dc96c92701407348c74e23d4d8ebc414f2fd4eae7a672ec9791f2b6",
     "reason": "本次只调整数据来源称谓、字段自然语言、规格描述和公开说明，没有改变业务数据、规则、代码、附件成员结构、答案语义或评分语义。"
+  },
+  "repo": {
+    "url": "https://github.com/CLK123654/ale-q10100-windows-repro",
+    "commit": "bea1105091eb9101587d038b2ccc7477c40b3f10",
+    "commit_message": "Refine Q10100 business wording and specification [skip ci]",
+    "windows_workflow_triggered": false
   }
 }
