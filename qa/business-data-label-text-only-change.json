@@ -70,13 +70,11 @@
       ]
     },
     {
-      "file": "评分表.txt",
-      "before_sha256": "1d64ce803c84358e788fc10200df70f62a72068e3f588914f4ed54ff1a5cdd77",
-      "after_sha256": "7590668cc0c2b34963c0cbde32963716ac7f89fa143e4071c176cf6a51b84a8e",
+      "file": "任务prompt.txt与评分表.txt",
       "changes": [
         {
-          "before": "所属层级：L8运行验证或可执行行为层",
-          "after": "所属层级：L8浏览器执行行为层"
+          "before": "输入文件保持不变与输入保护",
+          "after": "业务材料只读与本地访问边界"
         }
       ]
     },
