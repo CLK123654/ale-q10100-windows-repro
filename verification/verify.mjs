@@ -11,7 +11,7 @@ const repoRoot = path.resolve(import.meta.dirname, '..');
 const artifactRoot = path.join(repoRoot, 'artifacts');
 const evidenceRoot = path.join(repoRoot, 'verification', 'evidence');
 const attachments = ['输入数据包.zip', 'reference.zip', '关键标准答案.xlsx', '任务规格转化.xlsx'];
-const expectedReference = [
+const expectedDelivery = [
   'output/playwright.config.ts',
   'output/reports/decision_matrix.csv',
   'output/reports/modal_focus.csv',
@@ -174,9 +174,9 @@ async function prepare(label, mutate) {
 
 function compareFormalDelivery(outputRoot, formalDelivery) {
   const actualPaths = files(outputRoot).map((name) => `output/${name}`);
-  assert(JSON.stringify(actualPaths) === JSON.stringify(expectedReference), `输出成员与正式交付不一致：${actualPaths.join(',')}`);
+  assert(JSON.stringify(actualPaths) === JSON.stringify(expectedDelivery), `输出成员与正式交付不一致：${actualPaths.join(',')}`);
   const semantic = crypto.createHash('sha256');
-  for (const file of expectedReference) {
+  for (const file of expectedDelivery) {
     const actual = fs.readFileSync(path.join(path.dirname(outputRoot), ...file.split('/')));
     const expected = formalDelivery.get(file);
     if (file.endsWith('.csv')) {
@@ -201,7 +201,7 @@ const attachmentSha256 = Object.fromEntries(attachments.map((name) => [name, sha
 const inputMembers = zipEntries(path.join(artifactRoot, '输入数据包.zip'));
 const executableScan = [...inputMembers].map(([name, bytes]) => ({ name, classification: classifyExecutable(name, bytes) })).filter((item) => item.classification);
 assert(executableScan.length === 0, `输入包含平台专用成员：${JSON.stringify(executableScan)}`);
-assert(JSON.stringify([...zipEntries(path.join(artifactRoot, 'reference.zip')).keys()].sort()) === JSON.stringify(expectedReference), '正式交付成员错误');
+assert(JSON.stringify([...zipEntries(path.join(artifactRoot, 'reference.zip')).keys()].sort()) === JSON.stringify(expectedDelivery), '正式交付成员错误');
 assert(JSON.stringify(workbookSheets(path.join(artifactRoot, '关键标准答案.xlsx'))) === JSON.stringify(['交付物答案清单', '固定字段答案', '固定集合答案', '固定数值答案', '允许变体答案']), '关键标准答案Sheet错误');
 assert(JSON.stringify(workbookSheets(path.join(artifactRoot, '任务规格转化.xlsx'))) === JSON.stringify(['任务规格转化']), '任务规格Sheet错误');
 const solution = zipEntries(path.join(artifactRoot, 'reference.zip')).get('output/tests/account_security_totp.spec.ts').toString('utf8');
