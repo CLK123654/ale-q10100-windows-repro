@@ -1,5 +1,5 @@
-# 账号冻结控制台的Playwright发布验收
+# 账号冻结控制台的Playwright发布核查
 
 本仓库保存该任务的最终公开材料和独立Windows运行入口。四个附件位于artifacts目录，题目正文位于task目录。
 
-工作流使用GitHub托管的windows-2025运行器，按锁文件安装Playwright1.62和Chromium。验证器从输入包的空输出状态开始，在两个带中文和空格的目录中真实启动浏览器，比较Reference，检查输入变化和错误输入处理，并生成结构化证据。
+工作流使用GitHub托管的windows-2025运行器，按锁文件安装Playwright1.62和Chromium。验证器启动真实浏览器，检查页面裁决、TOTP窗口、键盘焦点、冻结请求和业务输入变化，并生成结构化证据。

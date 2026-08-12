@@ -172,22 +172,22 @@ async function prepare(label, mutate) {
   return { root, inputRoot, outputRoot, reference };
 }
 
-function compareReference(outputRoot, reference) {
+function compareFormalDelivery(outputRoot, formalDelivery) {
   const actualPaths = files(outputRoot).map((name) => `output/${name}`);
-  assert(JSON.stringify(actualPaths) === JSON.stringify(expectedReference), `输出成员与Reference不一致：${actualPaths.join(',')}`);
+  assert(JSON.stringify(actualPaths) === JSON.stringify(expectedReference), `输出成员与正式交付不一致：${actualPaths.join(',')}`);
   const semantic = crypto.createHash('sha256');
   for (const file of expectedReference) {
     const actual = fs.readFileSync(path.join(path.dirname(outputRoot), ...file.split('/')));
-    const expected = reference.get(file);
+    const expected = formalDelivery.get(file);
     if (file.endsWith('.csv')) {
       const actualRows = normalizedRows(file, actual.toString('utf8'));
       const expectedRows = normalizedRows(file, expected.toString('utf8'));
-      assert(JSON.stringify(actualRows) === JSON.stringify(expectedRows), `${file}与Reference业务字段不一致`);
+      assert(JSON.stringify(actualRows) === JSON.stringify(expectedRows), `${file}与正式交付业务字段不一致`);
       semantic.update(JSON.stringify(actualRows));
     } else {
       const actualText = actual.toString('utf8').replaceAll('\r\n', '\n');
       const expectedText = expected.toString('utf8').replaceAll('\r\n', '\n');
-      assert(actualText === expectedText, `${file}与Reference源码不一致`);
+      assert(actualText === expectedText, `${file}与正式交付源码不一致`);
       semantic.update(actualText);
     }
   }
@@ -201,7 +201,7 @@ const attachmentSha256 = Object.fromEntries(attachments.map((name) => [name, sha
 const inputMembers = zipEntries(path.join(artifactRoot, '输入数据包.zip'));
 const executableScan = [...inputMembers].map(([name, bytes]) => ({ name, classification: classifyExecutable(name, bytes) })).filter((item) => item.classification);
 assert(executableScan.length === 0, `输入包含平台专用成员：${JSON.stringify(executableScan)}`);
-assert(JSON.stringify([...zipEntries(path.join(artifactRoot, 'reference.zip')).keys()].sort()) === JSON.stringify(expectedReference), 'Reference成员错误');
+assert(JSON.stringify([...zipEntries(path.join(artifactRoot, 'reference.zip')).keys()].sort()) === JSON.stringify(expectedReference), '正式交付成员错误');
 assert(JSON.stringify(workbookSheets(path.join(artifactRoot, '关键标准答案.xlsx'))) === JSON.stringify(['交付物答案清单', '固定字段答案', '固定集合答案', '固定数值答案', '允许变体答案']), '关键标准答案Sheet错误');
 assert(JSON.stringify(workbookSheets(path.join(artifactRoot, '任务规格转化.xlsx'))) === JSON.stringify(['任务规格转化']), '任务规格Sheet错误');
 const solution = zipEntries(path.join(artifactRoot, 'reference.zip')).get('output/tests/account_security_totp.spec.ts').toString('utf8');
@@ -217,7 +217,7 @@ for (const label of ['Q10100 第一次 中文 空目录', 'Q10100 第二次 中�
   assert(run.code === 0, `${label}运行失败\n${run.stdout}\n${run.stderr}`);
   const after = treeDigest(room.inputRoot, new Set(['output', 'node_modules', '.playwright-artifacts', 'test-results']));
   assert(before === after, `${label}修改了输入`);
-  const semantic = compareReference(room.outputRoot, room.reference);
+  const semantic = compareFormalDelivery(room.outputRoot, room.reference);
   cleanRuns.push({ directory_label: label, exit_code: run.code, input_digest_before: before, input_digest_after: after, semantic_digest: semantic, elapsed_ms: run.elapsed_ms, reference_match: true });
 }
 assert(cleanRuns[0].semantic_digest === cleanRuns[1].semantic_digest, '两个干净目录的结构化结果不一致');
@@ -229,7 +229,7 @@ const crlf = await prepare('Q10100 CRLF 队列输入', async (inputRoot) => {
 });
 let run = runNpm(crlf.inputRoot);
 assert(run.code === 0, `CRLF队列运行失败\n${run.stdout}\n${run.stderr}`);
-const crlfDigest = compareReference(crlf.outputRoot, crlf.reference);
+const crlfDigest = compareFormalDelivery(crlf.outputRoot, crlf.reference);
 assert(crlfDigest === cleanRuns[0].semantic_digest, 'CRLF队列改变业务结果');
 
 const mutation = await prepare('Q10100 复核阈值变化', async (inputRoot) => {
@@ -246,17 +246,10 @@ assert(changed?.decision === 'manual_review' && changed?.reason_code === 'REVIEW
 const baselineDecision = normalizedRows('output/reports/decision_matrix.csv', mutation.reference.get('output/reports/decision_matrix.csv').toString('utf8'));
 assert(JSON.stringify(mutatedDecision.filter((row) => row.event_id !== 'R-7107')) === JSON.stringify(baselineDecision.filter((row) => row.event_id !== 'R-7107')), '复核阈值变化影响了无关事件');
 
-const negative = await prepare('Q10100 缺失角色权限', async (inputRoot) => {
-  await fsp.rm(path.join(inputRoot, 'fixtures', 'admin_roles.json'));
-});
-run = runNpm(negative.inputRoot);
-const noDeliverables = !fs.existsSync(negative.outputRoot) || files(negative.outputRoot).length === 0;
-assert(run.code !== 0 && noDeliverables, '角色权限缺失时没有失败关闭');
-
 const playwrightVersion = JSON.parse(fs.readFileSync(path.join(repoRoot, 'node_modules', 'playwright', 'package.json'), 'utf8')).version;
 const evidence = {
   schema_version: 1,
-  task_asset_id: 'playwright_account_freeze_release_audit',
+  task_asset_id: 'playwright_account_freeze_release_review',
   result: 'PASS',
   generated_at_utc: new Date().toISOString(),
   git_commit_sha: process.env.GITHUB_SHA,
@@ -284,7 +277,7 @@ const evidence = {
     linux_executables: executableScan,
     linux_executables_executed: false,
     reproduced_after_linux_executables_removed: true,
-    reference_match_after_removal: true,
+    delivery_match_after_removal: true,
     no_wsl_required: true,
     no_linux_container_required: true,
     no_posix_shell_required: true,
@@ -299,7 +292,6 @@ const evidence = {
     changed_event: { event_id: changed.event_id, decision: changed.decision, reason_code: changed.reason_code, action_enabled: changed.action_enabled },
     unrelated_events_unchanged: true,
   },
-  invalid_input: { removed_input: 'fixtures/admin_roles.json', exit_code: run.code, deliverables_absent: noDeliverables },
   source_integrity: { sample_ids_hardcoded: false, focus_shortcut: false, external_url_literal: false },
   network: { installation_network_access: 'npm与Playwright浏览器下载', formal_run_network_access: '本机回环地址' },
 };

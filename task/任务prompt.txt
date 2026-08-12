@@ -14,4 +14,4 @@ output/reports/totp_window.csv
 output/reports/network_receipts.csv
 output/reports/modal_focus.csv
 
-decision_matrix.csv供安全运营确认各队列项的页面裁决，totp_window.csv供身份工程师复核时间窗，network_receipts.csv供审计人员追踪实际冻结请求，modal_focus.csv供无障碍负责人检查键盘路径。输入文件保持不变，正式运行只访问本机回环地址。四份报告能相互定位到队列项、事件和账号，且页面断言全部通过时，本次发布验收完成。
+decision_matrix.csv供安全运营确认各队列项的页面裁决，totp_window.csv供身份工程师复核时间窗，network_receipts.csv供审计人员追踪实际冻结请求，modal_focus.csv供无障碍负责人检查键盘路径。输入文件保持不变，正式运行只访问本机回环地址。四份报告通过queue_item_id、event_id与account_id关联，发布负责人据此查看账号处置和请求记录。
