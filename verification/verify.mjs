@@ -207,7 +207,7 @@ assert(JSON.stringify(workbookSheets(path.join(artifactRoot, '任务规格转化
 const solution = zipEntries(path.join(artifactRoot, 'reference.zip')).get('output/tests/account_security_totp.spec.ts').toString('utf8');
 assert(!/\b(?:SECQ-24\d\d|R-710\d|acct_100\d|815419|854753|353788)\b/u.test(solution), '完成版按样本主键或验证码写死结果');
 assert(!/\.focus\s*\(|innerHTML\s*=|https?:\/\/(?!127\.0\.0\.1|localhost)/u.test(solution), '完成版包含焦点捷径、DOM改写或外部地址');
-assert(solution.includes("page.keyboard.press('Tab')") && solution.includes('page.route') && solution.includes('page.addInitScript') && solution.includes("page.on('request')"), '完成版缺少真实浏览器操作');
+assert(solution.includes("page.keyboard.press('Tab')") && solution.includes('page.route') && solution.includes('page.addInitScript') && solution.includes("page.on('request',"), '完成版缺少真实浏览器操作');
 
 const cleanRuns = [];
 for (const label of ['Q10100 第一次 中文 空目录', 'Q10100 第二次 中文 空格目录']) {
